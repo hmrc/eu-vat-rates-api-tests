@@ -39,26 +39,26 @@ class EuVatRatesService extends HttpClient {
     )
 
   def getEuVatRatesStartDateOnly(
-                              countryCode: String,
-                              startDate: String,
-                            ): StandaloneWSRequest#Self#Response =
+    countryCode: String,
+    startDate: String
+  ): StandaloneWSRequest#Self#Response =
     Await.result(
       getWithProxyIfEnabled(s"$getRatesURL/$countryCode?startDate=$startDate"),
       10.seconds
     )
 
   def getEuVatRatesEndDateOnly(
-                                  countryCode: String,
-                                  endDate: String,
-                                ): StandaloneWSRequest#Self#Response =
+    countryCode: String,
+    endDate: String
+  ): StandaloneWSRequest#Self#Response =
     Await.result(
       getWithProxyIfEnabled(s"$getRatesURL/$countryCode?endDate=$endDate"),
       10.seconds
     )
 
   def getEuVatRatesWithoutDateRange(
-                              countryCode: String,
-                            ): StandaloneWSRequest#Self#Response =
+    countryCode: String
+  ): StandaloneWSRequest#Self#Response =
     Await.result(
       getWithProxyIfEnabled(s"$getRatesURL/$countryCode"),
       10.seconds

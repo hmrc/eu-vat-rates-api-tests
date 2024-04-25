@@ -28,8 +28,8 @@ class EuVatRatesSpec extends BaseSpec {
     When("A request for EU Vat Rates is sent")
 
     val countryCode = "AT"
-    val startDate = "2023-01-01"
-    val endDate = "2023-01-31"
+    val startDate   = "2023-01-01"
+    val endDate     = "2023-01-31"
 
     val response =
       euVatRatesService.getEuVatRatesDateRange(countryCode, startDate, endDate)
@@ -38,9 +38,9 @@ class EuVatRatesSpec extends BaseSpec {
 
     Then("EU Vat Rates are returned")
 
-    response.status shouldBe 200
+    response.status     shouldBe 200
     euVatRates.nonEmpty shouldBe true
-    euVatRates.size shouldBe 5
+    euVatRates.size     shouldBe 5
 
   }
 
@@ -51,7 +51,7 @@ class EuVatRatesSpec extends BaseSpec {
     When("A request for EU Vat Rates is sent")
 
     val countryCode = "BG"
-    val startDate = "2023-07-01"
+    val startDate   = "2023-07-01"
 
     val response =
       euVatRatesService.getEuVatRatesStartDateOnly(countryCode, startDate)
@@ -60,9 +60,9 @@ class EuVatRatesSpec extends BaseSpec {
 
     Then("EU Vat Rates are returned")
 
-    response.status shouldBe 200
+    response.status     shouldBe 200
     euVatRates.nonEmpty shouldBe true
-    euVatRates.size shouldBe 3
+    euVatRates.size     shouldBe 3
 
   }
 
@@ -73,7 +73,7 @@ class EuVatRatesSpec extends BaseSpec {
     When("A request for EU Vat Rates is sent")
 
     val countryCode = "HR"
-    val endDate = "2023-08-31"
+    val endDate     = "2023-08-31"
 
     val response =
       euVatRatesService.getEuVatRatesStartDateOnly(countryCode, endDate)
@@ -82,9 +82,9 @@ class EuVatRatesSpec extends BaseSpec {
 
     Then("EU Vat Rates are returned")
 
-    response.status shouldBe 200
+    response.status     shouldBe 200
     euVatRates.nonEmpty shouldBe true
-    euVatRates.size shouldBe 3
+    euVatRates.size     shouldBe 3
 
   }
 
@@ -103,9 +103,9 @@ class EuVatRatesSpec extends BaseSpec {
 
     Then("EU Vat Rates are returned")
 
-    response.status shouldBe 200
+    response.status     shouldBe 200
     euVatRates.nonEmpty shouldBe true
-    euVatRates.size shouldBe 4
+    euVatRates.size     shouldBe 4
 
   }
 
@@ -133,8 +133,8 @@ class EuVatRatesSpec extends BaseSpec {
     When("A request for EU Vat Rates is sent")
 
     val countryCode = "AT"
-    val startDate = "2023/01-01"
-    val endDate = "2023-015-31"
+    val startDate   = "2023/01-01"
+    val endDate     = "2023-015-31"
 
     val response =
       euVatRatesService.getEuVatRatesDateRange(countryCode, startDate, endDate)
@@ -161,8 +161,6 @@ class EuVatRatesSpec extends BaseSpec {
     response.status shouldBe 404
 
   }
-
-
 
 //  Scenario("EU Vat Rates are not retrieved for a Country Code where Start Date is later than End Date") {
 //

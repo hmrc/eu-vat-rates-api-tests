@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.api.models
 
-import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 import java.time.LocalDate

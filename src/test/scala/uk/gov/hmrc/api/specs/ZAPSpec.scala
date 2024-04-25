@@ -16,4 +16,25 @@
 
 package uk.gov.hmrc.api.specs
 
-class ZAPSpec extends BaseSpec
+class ZAPSpec extends BaseSpec {
+
+  Scenario("ZAP EU Vat Rates retrieval") {
+
+    Given("The EU Vat Rates API is up and running")
+
+    When("A request for EU Vat Rates is sent")
+
+    val countryCode = "DE"
+    val startDate   = "2023-12-01"
+    val endDate     = "2023-12-31"
+
+    val response =
+      euVatRatesService.getEuVatRatesDateRange(countryCode, startDate, endDate)
+
+    Then("EU Vat Rates are returned")
+
+    response.status shouldBe 200
+
+  }
+
+}
