@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.api.specs
+package uk.gov.hmrc.api.models
 
-import org.scalatest.featurespec.AnyFeatureSpec
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.GivenWhenThen
-import uk.gov.hmrc.api.service.EuVatRatesService
+sealed trait VatRateType
 
-trait BaseSpec extends AnyFeatureSpec with GivenWhenThen with Matchers {
+object VatRateType extends Enumerable.Implicits {
 
-  val euVatRatesService = new EuVatRatesService
+  case object Standard extends WithName("STANDARD") with VatRateType
 
+  case object Reduced extends WithName("REDUCED") with VatRateType
+
+  val values: Seq[VatRateType] = Seq(Standard, Reduced)
+
+  implicit val enumerable: Enumerable[VatRateType] =
+    Enumerable(values.map(v => v.toString -> v): _*)
 }

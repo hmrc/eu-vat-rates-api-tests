@@ -14,15 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.api.specs
+package uk.gov.hmrc.api.models
 
-import org.scalatest.featurespec.AnyFeatureSpec
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.GivenWhenThen
-import uk.gov.hmrc.api.service.EuVatRatesService
-
-trait BaseSpec extends AnyFeatureSpec with GivenWhenThen with Matchers {
-
-  val euVatRatesService = new EuVatRatesService
-
+class WithName(string: String) {
+  override val toString: String = string
 }

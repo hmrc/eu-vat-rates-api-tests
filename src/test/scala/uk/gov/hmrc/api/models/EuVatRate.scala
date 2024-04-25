@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.api.specs
+package uk.gov.hmrc.api.models
 
-import org.scalatest.featurespec.AnyFeatureSpec
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.GivenWhenThen
-import uk.gov.hmrc.api.service.EuVatRatesService
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
 
-trait BaseSpec extends AnyFeatureSpec with GivenWhenThen with Matchers {
+import java.time.LocalDate
 
-  val euVatRatesService = new EuVatRatesService
+case class EuVatRate(country: Country, vatRate: BigDecimal, vatRateType: VatRateType, situatedOn: LocalDate)
+
+object EuVatRate {
+
+  implicit val format: Format[EuVatRate] = Json.format[EuVatRate]
 
 }
