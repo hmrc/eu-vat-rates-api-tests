@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.api.specs
+package uk.gov.hmrc.api.utils
 
-import org.scalatest.featurespec.AnyFeatureSpec
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.GivenWhenThen
-import uk.gov.hmrc.api.service.EuVatRatesService
+object Zap {
 
-trait BaseSpec extends AnyFeatureSpec with GivenWhenThen with Matchers {
-
-  val euVatRatesService = new EuVatRatesService
+  val enabled: Boolean = sys.props.get("zap.proxy").isDefined
 
 }

@@ -1,8 +1,7 @@
-**This is the template README. Please update this with project specific content.**
 
 # eu-vat-rates-api-tests
 
-<SERVICE_NAME> API tests.
+eu-vat-rates API tests.
 
 ## Pre-requisites
 
@@ -14,10 +13,10 @@ Start Mongo Docker container as follows:
 docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:5.0
 ```
 
-Start `<SERVICE_MANAGER_PROFILE>` services as follows:
+Start `IMPORT_ONE_STOP_SHOP_ALL` services as follows:
 
 ```bash
-sm2 --start <SERVICE_MANAGER_PROFILE>
+sm2 --start IMPORT_ONE_STOP_SHOP_ALL
 ```
 
 ## Tests
