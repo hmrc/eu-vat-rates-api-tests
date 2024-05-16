@@ -162,25 +162,23 @@ class EuVatRatesSpec extends BaseSpec {
 
   }
 
-//  Scenario("EU Vat Rates are not retrieved for a Country Code where Start Date is later than End Date") {
-//
-//    Given("The EU Vat Rates API is up and running")
-//
-//    When("A request for EU Vat Rates is sent")
-//
-//    val countryCode = "AT"
-//    val startDate = "2023-02-28"
-//    val endDate = "2023-01-01"
-//
-//    val response =
-//      euVatRatesService.getEuVatRatesDateRange(countryCode, startDate, endDate)
-//
-//    val euVatRates = Json.parse(response.body).as[Seq[EuVatRate]]
-//
-//    Then("EU Vat Rates are not returned")
-//
-//    response.status shouldBe 502
-//
-//  }
+  Scenario("EU Vat Rates are not retrieved for a Country Code where Start Date is later than End Date") {
+
+    Given("The EU Vat Rates API is up and running")
+
+    When("A request for EU Vat Rates is sent")
+
+    val countryCode = "AT"
+    val startDate   = "2023-02-28"
+    val endDate     = "2023-01-01"
+
+    val response =
+      euVatRatesService.getEuVatRatesDateRange(countryCode, startDate, endDate)
+
+    Then("EU Vat Rates are not returned")
+
+    response.status shouldBe 400
+
+  }
 
 }
