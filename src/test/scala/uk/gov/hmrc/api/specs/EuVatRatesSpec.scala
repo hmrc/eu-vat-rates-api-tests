@@ -122,7 +122,7 @@ class EuVatRatesSpec extends BaseSpec {
 
     Then("EU Vat Rates are not returned")
 
-    response.status shouldBe 500
+    response.status shouldBe 400
 
   }
 
@@ -141,7 +141,7 @@ class EuVatRatesSpec extends BaseSpec {
 
     Then("EU Vat Rates are not returned")
 
-    response.status shouldBe 500
+    response.status shouldBe 400
 
   }
 
