@@ -13,10 +13,10 @@ Start Mongo Docker container as follows:
 docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:5.0
 ```
 
-Start `IMPORT_ONE_STOP_SHOP_ALL` services as follows:
+Start `EU_VAT_RATES_ALL` services as follows:
 
 ```bash
-sm2 --start IMPORT_ONE_STOP_SHOP_ALL
+sm2 --start EU_VAT_RATES_ALL
 ```
 
 ## Tests
