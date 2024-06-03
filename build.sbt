@@ -1,4 +1,5 @@
 lazy val root = (project in file("."))
+  .disablePlugins(JUnitXmlReportPlugin)
   .settings(
     name := "eu-vat-rates-api-tests",
     version := "0.1.0",
