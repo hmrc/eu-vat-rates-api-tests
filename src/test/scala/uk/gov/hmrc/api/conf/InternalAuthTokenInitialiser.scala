@@ -26,33 +26,34 @@ import scala.concurrent.{ExecutionContext, Future}
 
 object InternalAuthTokenInitialiser {
 
-  val resourceType: String = "eu-vat-rates"
+  val resourceType: String     = "eu-vat-rates"
   val resourceLocation: String = "*"
-  val actions: Seq[String] = List("READ", "WRITE", "DELETE")
+  val actions: Seq[String]     = List("READ", "WRITE", "DELETE")
 }
 
 @Singleton
 class InternalAuthTokenInitialiser() extends HttpClient {
   import InternalAuthTokenInitialiser._
-  private val internalAuthService: String = s"http://${TestConfiguration.internalAuthHost}:${TestConfiguration.internalAuthPort}"
-  private val authToken: String = TestConfiguration.internalAuthToken
-  private val appName: String = "eu-vat-rates-api-tests"
-  private val url = s"$internalAuthService/test-only/token"
-  private val requestBody = Json.obj(
-    "token" -> authToken,
-    "principal" -> appName,
+  private val internalAuthService: String =
+    s"http://${TestConfiguration.internalAuthHost}:${TestConfiguration.internalAuthPort}"
+  private val authToken: String           = TestConfiguration.internalAuthToken
+  private val appName: String             = "eu-vat-rates-api-tests"
+  private val url                         = s"$internalAuthService/test-only/token"
+  private val requestBody                 = Json.obj(
+    "token"       -> authToken,
+    "principal"   -> appName,
     "permissions" -> Seq(
       Json.obj(
-        "resourceType" -> resourceType,
+        "resourceType"     -> resourceType,
         "resourceLocation" -> resourceLocation,
-        "actions" -> actions
+        "actions"          -> actions
       )
     )
   )
 
   def initialise: Future[Unit] = ensureAuthToken()
 
-  private def ensureAuthToken(): Future[Unit] = {
+  private def ensureAuthToken(): Future[Unit] =
     authTokenIsValid().flatMap { isValid =>
       if (isValid) {
         Future.successful(())
@@ -60,10 +61,8 @@ class InternalAuthTokenInitialiser() extends HttpClient {
         createClientAuthToken()
       }
     }
-  }
 
-  private def createClientAuthToken(): Future[Unit] = {
-
+  private def createClientAuthToken(): Future[Unit] =
     wsClient
       .url(url)
       .post(requestBody)
@@ -74,15 +73,12 @@ class InternalAuthTokenInitialiser() extends HttpClient {
           Future.failed(new RuntimeException("Unable to initialise internal-auth token"))
         }
       }
-  }
 
-  private def authTokenIsValid(): Future[Boolean] = {
-
+  private def authTokenIsValid(): Future[Boolean] =
     wsClient
       .url(url)
       .withHttpHeaders(("Authorization", authToken))
       .get()
       .map(_.status == 200)
-  }
 
 }
