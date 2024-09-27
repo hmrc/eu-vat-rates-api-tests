@@ -39,4 +39,9 @@ object TestConfiguration {
 
   def serviceRoute(serviceName: String): String = envConfig.getString(s"services.$serviceName.productionRoute")
 
+  def internalAuthHost: String  = envConfig.getString("services.internal-auth.host")
+  def internalAuthPort: String  = envConfig.getString(s"services.internal-auth.port")
+  def internalAuthRoute: String = envConfig.getString(s"services.internal-auth.productionRoute")
+  def internalAuthToken: String = envConfig.getString(s"services.internal-auth.token")
+
 }

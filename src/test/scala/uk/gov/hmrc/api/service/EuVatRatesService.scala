@@ -18,15 +18,19 @@ package uk.gov.hmrc.api.service
 
 import play.api.libs.ws.{DefaultWSProxyServer, StandaloneWSRequest}
 import uk.gov.hmrc.api.client.HttpClient
-import uk.gov.hmrc.api.conf.TestConfiguration
+import uk.gov.hmrc.api.conf.{InternalAuthTokenInitialiser, TestConfiguration}
 import uk.gov.hmrc.api.utils.Zap
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 
 class EuVatRatesService extends HttpClient {
-  val host: String        = TestConfiguration.url("eu-vat-rates")
-  val getRatesURL: String = s"$host/vat-rate"
+  val host: String                                  = TestConfiguration.url("eu-vat-rates")
+  val getRatesURL: String                           = s"$host/vat-rate"
+  val initialiseToken: InternalAuthTokenInitialiser = new InternalAuthTokenInitialiser()
+  val token: String                                 = TestConfiguration.internalAuthToken
+
+  initialiseToken.initialise
 
   def getEuVatRatesDateRange(
     countryCode: String,
@@ -34,7 +38,10 @@ class EuVatRatesService extends HttpClient {
     endDate: String
   ): StandaloneWSRequest#Self#Response =
     Await.result(
-      getWithProxyIfEnabled(s"$getRatesURL/$countryCode?startDate=$startDate&endDate=$endDate"),
+      getWithProxyIfEnabled(
+        s"$getRatesURL/$countryCode?startDate=$startDate&endDate=$endDate",
+        ("Authorization", token)
+      ),
       10.seconds
     )
 
@@ -43,7 +50,7 @@ class EuVatRatesService extends HttpClient {
     startDate: String
   ): StandaloneWSRequest#Self#Response =
     Await.result(
-      getWithProxyIfEnabled(s"$getRatesURL/$countryCode?startDate=$startDate"),
+      getWithProxyIfEnabled(s"$getRatesURL/$countryCode?startDate=$startDate", ("Authorization", token)),
       10.seconds
     )
 
@@ -52,7 +59,7 @@ class EuVatRatesService extends HttpClient {
     endDate: String
   ): StandaloneWSRequest#Self#Response =
     Await.result(
-      getWithProxyIfEnabled(s"$getRatesURL/$countryCode?endDate=$endDate"),
+      getWithProxyIfEnabled(s"$getRatesURL/$countryCode?endDate=$endDate", ("Authorization", token)),
       10.seconds
     )
 
@@ -60,7 +67,7 @@ class EuVatRatesService extends HttpClient {
     countryCode: String
   ): StandaloneWSRequest#Self#Response =
     Await.result(
-      getWithProxyIfEnabled(s"$getRatesURL/$countryCode"),
+      getWithProxyIfEnabled(s"$getRatesURL/$countryCode", ("Authorization", token)),
       10.seconds
     )
 
