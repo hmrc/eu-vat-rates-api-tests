@@ -20,9 +20,8 @@ import play.api.libs.json.Json
 import play.api.libs.ws.JsonBodyWritables.writeableOf_JsValue
 import uk.gov.hmrc.api.client.HttpClient
 
-import java.net.URL
-import javax.inject.{Inject, Singleton}
-import scala.concurrent.{ExecutionContext, Future}
+import javax.inject.Singleton
+import scala.concurrent.Future
 
 object InternalAuthTokenInitialiser {
 
