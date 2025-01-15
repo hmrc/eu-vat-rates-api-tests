@@ -16,13 +16,13 @@
 
 package uk.gov.hmrc.api.service
 
-import play.api.libs.ws.{DefaultWSProxyServer, StandaloneWSRequest}
+import play.api.libs.ws.DefaultWSProxyServer
 import uk.gov.hmrc.api.client.HttpClient
 import uk.gov.hmrc.api.conf.{InternalAuthTokenInitialiser, TestConfiguration}
 import uk.gov.hmrc.api.utils.Zap
 
 import scala.concurrent.duration._
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Await
 
 class EuVatRatesService extends HttpClient {
   val host: String                                  = TestConfiguration.url("eu-vat-rates")
@@ -36,7 +36,7 @@ class EuVatRatesService extends HttpClient {
     countryCode: String,
     startDate: String,
     endDate: String
-  ): StandaloneWSRequest#Self#Response =
+  ) =
     Await.result(
       getWithProxyIfEnabled(
         s"$getRatesURL/$countryCode?startDate=$startDate&endDate=$endDate",
@@ -48,7 +48,7 @@ class EuVatRatesService extends HttpClient {
   def getEuVatRatesStartDateOnly(
     countryCode: String,
     startDate: String
-  ): StandaloneWSRequest#Self#Response =
+  ) =
     Await.result(
       getWithProxyIfEnabled(s"$getRatesURL/$countryCode?startDate=$startDate", ("Authorization", token)),
       10.seconds
@@ -57,7 +57,7 @@ class EuVatRatesService extends HttpClient {
   def getEuVatRatesEndDateOnly(
     countryCode: String,
     endDate: String
-  ): StandaloneWSRequest#Self#Response =
+  ) =
     Await.result(
       getWithProxyIfEnabled(s"$getRatesURL/$countryCode?endDate=$endDate", ("Authorization", token)),
       10.seconds
@@ -65,7 +65,7 @@ class EuVatRatesService extends HttpClient {
 
   def getEuVatRatesWithoutDateRange(
     countryCode: String
-  ): StandaloneWSRequest#Self#Response =
+  ) =
     Await.result(
       getWithProxyIfEnabled(s"$getRatesURL/$countryCode", ("Authorization", token)),
       10.seconds
@@ -74,7 +74,7 @@ class EuVatRatesService extends HttpClient {
   private def getWithProxyIfEnabled(
     url: String,
     headers: (String, String)*
-  ): Future[StandaloneWSRequest#Self#Response] =
+  ) =
     if (Zap.enabled) {
       wsClient
         .url(url)
